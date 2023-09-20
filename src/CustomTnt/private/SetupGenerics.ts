@@ -51,7 +51,7 @@ const createGiveFunction = (
       self,
       i("minecraft:endermite_spawn_egg", {
         display: {
-          Name: `{"text":${nameOfTheTnt},"color":"#FF0808","italic":false}`,
+          Name: `{"text":"${nameOfTheTnt}","color":"#FF0808","italic":false}`,
         },
         CustomModelData: customModelData,
         EntityTag: {

@@ -2,8 +2,8 @@ import type { SandstoneConfig } from "sandstone";
 
 export default {
   name: "CustomTNT",
-  description: ["A ", { text: "Sandstone", color: "gold" }, " data pack."],
-  formatVersion: 7,
+  description: ["A Datapack by ", { text: "Mizab", color: "gold" }],
+  formatVersion: 15,
   namespace: "default",
   packUid: "43FVcHYS",
   // saveOptions: { path: './.sandstone/output/datapack' },
