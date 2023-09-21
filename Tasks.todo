@@ -2,13 +2,15 @@ Task:
   ✔ 5x TNT - normal tnt but with 5x explosion power and radius
   ✔ 10x TNT - normal tnt but with 10x explosion power and radius
   ✔ 20x TNT - normal tnt but with 20x explosion power and radius
-  ☐ House tnt- explodes into a build villager house
-  ☐ Animal tnt- explodes into a bunch of different passive animals
+  ✔ House tnt- explodes into a build villager house
+  ✔ Animal tnt- explodes into a bunch of different passive animals
   ☐ Lightning tnt- explodes into a large AoE lightning strike
   ☐ Fire tnt_ explodes into a large patch of fire
   ☐ Nuclear tnt- massive explosion massive damage
   ☐ Nuclear dynamite- throwable explosion slightly weaker than nuclear tnt
   ☐ Warden tnt- explodes into a warden
+
+  ☐ Do Textures
 
 Test:
   ☐ House TNT in different world
