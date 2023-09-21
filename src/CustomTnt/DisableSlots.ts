@@ -10,6 +10,9 @@ import {
 } from "sandstone";
 import { self } from "../Tick";
 
+/**
+ * Creates a slime entity with special attributes and effects.
+ */
 export const slimeEntity = () => {
   summon("minecraft:slime", rel(0, 0, 0), {
     NoGravity: NBT.byte(1),
@@ -27,7 +30,7 @@ export const slimeEntity = () => {
   });
 };
 
-// Summon a slime to disable the slots of the armor stand so that player can't interact with it
+// Summon a slime at the position of TNT's armor stand to disable the slots of the armor stand so that player can't interact with it
 export const spawnSlime = MCFunction("custom_tnt/spawn_slime", () => {
   execute
     .at(
@@ -45,7 +48,7 @@ export const spawnSlime = MCFunction("custom_tnt/spawn_slime", () => {
     });
 });
 
-// Teleport the slime to the Custom TNT nearby and if TNT is not found then kill the slime
+// Teleport the slime to the Custom TNT (Armor Stand) nearby and if TNT is not found then kill the slime
 export const teleportSlime = MCFunction("custom_tnt/teleport_slime", () => {
   execute
     .as(Selector("@e", { type: "minecraft:slime", tag: "tnt.slime" }))

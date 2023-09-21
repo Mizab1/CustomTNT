@@ -18,7 +18,7 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
     .as(Selector("@e", { type: "minecraft:endermite", tag: "tnt.endermite" }))
     .at(self)
     .run(() => {
-      // Place custom code here
+      // Creates the "Give TNT" function and does the processing if Custom TNT is placed
       placeAndCreateFunction("give_5x", "5x TNT", "5x", 110001);
       placeAndCreateFunction("give_10x", "10x TNT", "10x", 110002);
       placeAndCreateFunction("give_20x", "20x TNT", "20x", 110003);

@@ -14,11 +14,11 @@ export const self = Selector("@s");
 const tick = MCFunction(
   "tick",
   () => {
-    // tnt related
+    // TNT related
     setTntblock();
     handler();
 
-    // disable slots
+    // Disable slots of the Armor stand disguised as Custom TNT
     teleportSlime();
     spawnSlime();
     decrementFuseTime();

@@ -1,6 +1,9 @@
 import { MCFunction, execute, Selector } from "sandstone";
 import { fuseTime } from "../Tick";
 
+/**
+ * Ticking function for decrementing the fuse time after each time, called in the tick function
+ */
 export const decrementFuseTime = MCFunction(
   "custom_tnt/decrement_fuse_time",
   () => {

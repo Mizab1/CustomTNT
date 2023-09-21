@@ -2,6 +2,9 @@ import { MCFunction, give } from "sandstone";
 import { self } from "../Tick";
 import { i } from "../Utils/Functions";
 
+/**
+ * A standalone function to give a gravity gun to the current executing player
+ */
 const giveGun = MCFunction("items/gravity_gun/give", () => {
   give(
     self,

@@ -17,6 +17,12 @@ import { CombinedConditions } from "sandstone/flow/conditions";
 import { fuseTime, self } from "../../Tick";
 import { i } from "../../Utils/Functions";
 
+/**
+ * Places TNT at the specified location if the endermite has a certain tag.
+ *
+ * @param {string} tag - The tag used to check if the endermite is of a specific type
+ * @param {number} customModelData - The custom model data for the TNT item.
+ */
 const placeTnt = (tag: string, customModelData: number) => {
   _.if(Selector("@s", { tag: tag }), () => {
     summon("minecraft:armor_stand", rel(0, 0, 0), {
@@ -40,6 +46,14 @@ const placeTnt = (tag: string, customModelData: number) => {
   });
 };
 
+/**
+ * Creates a give function for giving a specific type of TNT item to the player.
+ *
+ * @param {string} nameOfTheGiveFunction - The name of the give function.
+ * @param {string} nameOfTheTnt - The name of the TNT item.
+ * @param {string} tag - The tag associated with the TNT item.
+ * @param {number} customModelData - The custom model data for the TNT item.
+ */
 const createGiveFunction = (
   nameOfTheGiveFunction: string,
   nameOfTheTnt: string,
@@ -77,7 +91,7 @@ const createGiveFunction = (
   });
 };
 
-// Combination of 2 functions
+// Combination of 2 of the above functions
 export const placeAndCreateFunction = (
   nameOfTheGiveFunction: string,
   nameOfTheTnt: string,
@@ -88,6 +102,7 @@ export const placeAndCreateFunction = (
   createGiveFunction(nameOfTheGiveFunction, nameOfTheTnt, tag, customModelData);
 };
 
+// Conditions for checking if the TNT is primed or lifted
 const primingCondition: CombinedConditions = _.or(
   Selector("@e", {
     type: "minecraft:tnt",
@@ -95,6 +110,17 @@ const primingCondition: CombinedConditions = _.or(
   }),
   Selector("@s", { tag: "picked_up" })
 );
+
+/**
+ * Handles the explosion event for the given TNT tag.
+ *
+ * @param {string} TntTag - The tag of the TNT.
+ * @param {number} FuseTimer - The fuse time in ticks.
+ * @param {() => void} displayParticles - A function to display particles.
+ * @param {() => void} eventOnExplosion - A function to run when the TNT explodes.
+ * @param {() => void | null} runEachTick - An optional function to run each tick while the TNT is primed.
+ * @return {void}
+ */
 export const explosionHandler = (
   TntTag: string,
   FuseTimer: number,
@@ -103,18 +129,16 @@ export const explosionHandler = (
   runEachTick: () => void | null
 ) => {
   execute.if(Selector("@s", { tag: TntTag })).run(() => {
-    // Check if the TNT is primed or getting picked by gravity gun
     _.if(primingCondition, () => {
       kill(
         Selector("@e", {
           type: "minecraft:tnt",
           distance: [Infinity, 1],
         })
-      ); // kill the closed TNT
+      );
 
-      playsound("minecraft:entity.tnt.primed", "master", "@a"); // Play the TNT primed sound
-
-      fuseTime.set(FuseTimer); // Set the fuse time to {FuseTimer} ticks
+      playsound("minecraft:entity.tnt.primed", "master", "@a");
+      fuseTime.set(FuseTimer);
 
       tag(self).add("is_primed"); // Add a tag for tracking purposes
       tag(self).remove("picked_up");
@@ -122,17 +146,14 @@ export const explosionHandler = (
 
     // * Run Continuously if the TNT is primed
     _.if(fuseTime.greaterOrEqualThan(0), () => {
-      // Display particles
       displayParticles();
 
       // Run this auxillary function each fuse time
       runEachTick ? runEachTick() : "";
 
-      // Run when fuse reaches 0 i.e the TNT is exploding
       _.if(fuseTime.matches(0), () => {
         eventOnExplosion();
-
-        kill(self); // Kill the TNT (i.e it exploded)
+        kill(self);
       });
     });
 
