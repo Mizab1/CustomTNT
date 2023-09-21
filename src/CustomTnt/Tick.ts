@@ -8,6 +8,7 @@ import {
   particle,
   raw,
   rel,
+  schedule,
   setblock,
   spreadplayers,
   summon,
@@ -276,16 +277,26 @@ export const handler = MCFunction("custom_tnt/handler", () => {
         "tnt.lightning",
         100,
         () => {
-          particle(
-            "minecraft:flame",
-            rel(0, 0, 0),
-            [0.2, 0.2, 0.2],
-            0.1,
-            10,
-            "force"
+          particle("minecraft:flash", rel(0, 1, 0), [1, 1, 1], 0, 2, "force");
+        },
+        () => {
+          summon("minecraft:marker", rel(0, 0, 0), {
+            Invisible: NBT.byte(1),
+            Tags: ["lightning.marker"],
+          });
+          schedule.function(
+            MCFunction("custom_tnt/auxillary/schedule_kill", () => {
+              kill(
+                Selector("@e", {
+                  type: "minecraft:marker",
+                  tag: "lightning.marker",
+                })
+              );
+            }),
+            "300t",
+            "replace"
           );
         },
-        () => {},
         null
       );
     });
