@@ -6,6 +6,7 @@ import {
   execute,
   give,
   kill,
+  particle,
   playsound,
   rel,
   setblock,
@@ -152,6 +153,20 @@ export const explosionHandler = (
       runEachTick ? runEachTick() : "";
 
       _.if(fuseTime.matches(0), () => {
+        particle(
+          "minecraft:explosion",
+          rel(0, 1, 0),
+          [1, 1, 1],
+          1,
+          30,
+          "force"
+        );
+        playsound(
+          "minecraft:entity.generic.explode",
+          "master",
+          "@a",
+          rel(0, 1, 0)
+        );
         eventOnExplosion();
         kill(self);
       });

@@ -29,6 +29,13 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
       placeAndCreateFunction("give_10x", "10x TNT", "10x", 110002);
       placeAndCreateFunction("give_20x", "20x TNT", "20x", 110003);
       placeAndCreateFunction("give_house", "House TNT", "house", 110004);
+      placeAndCreateFunction("give_animals", "Animals TNT", "animals", 110005);
+      placeAndCreateFunction(
+        "give_lightning",
+        "Lightning Strike TNT",
+        "lightning",
+        110006
+      );
     });
 });
 
@@ -157,6 +164,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             )
             .at(self)
             .run(() => {
+              raw(`particle minecraft:wax_on ~ ~ ~ 3 3 3 0 5000 force`);
               for (let i = 0; i < housesLoop; i++) {
                 let pickRandomHouse =
                   houses[Math.floor(Math.random() * houses.length)];
@@ -187,6 +195,97 @@ export const handler = MCFunction("custom_tnt/handler", () => {
               }
             });
         },
+        null
+      );
+      explosionHandler(
+        "tnt.animals",
+        100,
+        () => {
+          particle(
+            "minecraft:cloud",
+            rel(0, 1, 0),
+            [0.1, 0.5, 0.1],
+            0.1,
+            15,
+            "force"
+          );
+        },
+        () => {
+          for (let i = 0; i < 25; i++) {
+            summon("minecraft:cow", rel(0, 0, 0), {
+              Tags: ["tnt.cow"],
+              Motion: [
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+              ],
+            });
+            summon("minecraft:chicken", rel(0, 0, 0), {
+              Tags: ["tnt.chicken"],
+              Motion: [
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+              ],
+            });
+            summon("minecraft:pig", rel(0, 0, 0), {
+              Tags: ["tnt.pig"],
+              Motion: [
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+              ],
+            });
+            summon("minecraft:sheep", rel(0, 0, 0), {
+              Tags: ["tnt.sheep"],
+              Motion: [
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+              ],
+            });
+            summon("minecraft:horse", rel(0, 0, 0), {
+              Tags: ["tnt.horse"],
+              Motion: [
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+              ],
+            });
+            summon("minecraft:rabbit", rel(0, 0, 0), {
+              Tags: ["tnt.rabbit"],
+              Motion: [
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+              ],
+            });
+            summon("minecraft:cat", rel(0, 0, 0), {
+              Tags: ["tnt.cat"],
+              Motion: [
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+              ],
+            });
+          }
+        },
+        null
+      );
+      explosionHandler(
+        "tnt.lightning",
+        100,
+        () => {
+          particle(
+            "minecraft:flame",
+            rel(0, 0, 0),
+            [0.2, 0.2, 0.2],
+            0.1,
+            10,
+            "force"
+          );
+        },
+        () => {},
         null
       );
     });
