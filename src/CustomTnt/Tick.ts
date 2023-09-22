@@ -40,6 +40,7 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
       );
       placeAndCreateFunction("give_fire", "Fire TNT", "fire", 110007);
       placeAndCreateFunction("give_nuclear", "Nuclear TNT", "nuclear", 110008);
+      placeAndCreateFunction("give_warden", "Warden TNT", "warden", 110009);
     });
 });
 
@@ -354,6 +355,34 @@ export const handler = MCFunction("custom_tnt/handler", () => {
               );
             }
           }
+        },
+        null
+      );
+      explosionHandler(
+        "tnt.warden",
+        100,
+        () => {
+          raw(
+            `particle falling_dust black_concrete ~ ~0.8 ~ 0.5 0.5 0.5 1 10 normal`
+          );
+          particle(
+            "minecraft:smoke",
+            rel(0, 0.8, 0),
+            [0.2, 0.2, 0.2],
+            0.1,
+            20,
+            "force"
+          );
+        },
+        () => {
+          summon("minecraft:warden", rel(0, 0, 0), {
+            Brain: {
+              memories: {
+                '"minecraft:dig_cooldown"': { ttl: NBT.long(1200), value: {} },
+                '"minecraft:is_emerging"': { ttl: NBT.long(134), value: {} },
+              },
+            },
+          });
         },
         null
       );

@@ -6,9 +6,9 @@ Task:
   ✔ Animal tnt- explodes into a bunch of different passive animals
   ✔ Lightning tnt- explodes into a large AoE lightning strike
   ✔ Fire tnt_ explodes into a large patch of fire
-  ☐ Nuclear tnt- massive explosion massive damage
-  ☐ Nuclear dynamite- throwable explosion slightly weaker than nuclear tnt
-  ☐ Warden tnt- explodes into a warden
+  ✔ Nuclear tnt- massive explosion massive damage
+  ✔ Nuclear dynamite- throwable explosion slightly weaker than nuclear tnt
+  ✔ Warden tnt- explodes into a warden
 
   ☐ Do Textures
 
