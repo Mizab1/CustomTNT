@@ -4,6 +4,7 @@ import {
   Selector,
   _,
   execute,
+  fill,
   kill,
   particle,
   raw,
@@ -37,6 +38,7 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
         "lightning",
         110006
       );
+      placeAndCreateFunction("give_fire", "Fire TNT", "fire", 110007);
     });
 });
 
@@ -296,6 +298,27 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             "300t",
             "replace"
           );
+        },
+        null
+      );
+      explosionHandler(
+        "tnt.fire",
+        100,
+        () => {
+          particle(
+            "minecraft:smoke",
+            rel(0, 0.8, 0),
+            [0.2, 0.2, 0.2],
+            0.1,
+            20,
+            "force"
+          );
+        },
+        () => {
+          raw(
+            `fill ~10 ~10 ~10 ~-10 ~-10 ~-10 minecraft:fire replace minecraft:air`
+          );
+          particle("minecraft:explosion", rel(0, 0, 0), [5, 5, 5], 0, 6_000);
         },
         null
       );
