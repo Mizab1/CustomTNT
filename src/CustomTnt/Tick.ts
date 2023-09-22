@@ -39,6 +39,7 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
         110006
       );
       placeAndCreateFunction("give_fire", "Fire TNT", "fire", 110007);
+      placeAndCreateFunction("give_nuclear", "Nuclear TNT", "nuclear", 110008);
     });
 });
 
@@ -319,6 +320,40 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             `fill ~10 ~10 ~10 ~-10 ~-10 ~-10 minecraft:fire replace minecraft:air`
           );
           particle("minecraft:explosion", rel(0, 0, 0), [5, 5, 5], 0, 6_000);
+        },
+        null
+      );
+      explosionHandler(
+        "tnt.nuclear",
+        100,
+        () => {
+          particle(
+            "minecraft:crimson_spore",
+            rel(0, 0.8, 0),
+            [0, 0, 0],
+            0,
+            20,
+            "force"
+          );
+          particle(
+            "minecraft:soul_fire_flame",
+            rel(0, 0.8, 0),
+            [0, 0, 0],
+            0.1,
+            5,
+            "force"
+          );
+        },
+        () => {
+          for (let i = -3; i <= 3; i++) {
+            for (let j = -3; j <= 3; j++) {
+              raw(
+                `summon fireball ~${i * 10} ~-0.8 ~${
+                  j * 10
+                } {ExplosionPower:100b,power:[0.0,-1.0,0.0]}`
+              );
+            }
+          }
         },
         null
       );
