@@ -1,18 +1,20 @@
 import {
   MCFunction,
-  NBT,
   Selector,
   _,
   execute,
+  give,
   kill,
   raw,
   rel,
-  say,
-  summon,
 } from "sandstone";
 import { self } from "../Tick";
+import { i } from "../Utils/Functions";
 
-export const Tick = MCFunction("items/dynamite/tick", () => {
+/**
+ * A function run by all snowballs to check if it hit the ground
+ */
+export const hitGround = MCFunction("items/dynamite/hit_ground", () => {
   execute
     .as(Selector("@e", { type: "minecraft:snowball" }))
     .at(self)
@@ -30,4 +32,11 @@ export const Tick = MCFunction("items/dynamite/tick", () => {
         }
       }
     });
+});
+
+/**
+ * A standalone function to give a gravity gun to the current executing player
+ */
+const giveGun = MCFunction("items/dynamite/give", () => {
+  give(self, "minecraft:snowball", 1);
 });

@@ -19,7 +19,7 @@ import {
   explosionHandler,
   placeAndCreateFunction,
 } from "./private/SetupGenerics";
-import { b } from "../Utils/Functions";
+import { b, randomIntFromInterval } from "../Utils/Functions";
 
 export const setTntblock = MCFunction("custom_tnt/setblock", () => {
   execute
@@ -81,8 +81,11 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             rel(0, 0, 0),
             [0.3, 0.3, 0.3],
             0.1,
-            20,
+            10,
             "force"
+          );
+          raw(
+            `particle dust 0.973 1.000 0.169 1 ~ ~0.8 ~ 0.5 0.5 0.5 1 10 force`
           );
         },
         () => {
@@ -103,9 +106,10 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             rel(0, 0, 0),
             [0.5, 0.5, 0.5],
             0.1,
-            25,
+            15,
             "force"
           );
+          raw(`particle end_rod ~ ~1 ~ 0 0 0 0.1 1 force`);
         },
         () => {
           summon("minecraft:creeper", rel(0, 0, 0), {
@@ -344,6 +348,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             5,
             "force"
           );
+          raw(`particle angry_villager ~ ~1 ~ 0.5 0.5 0.5 1 1 force`);
         },
         () => {
           for (let i = -3; i <= 3; i++) {
@@ -373,6 +378,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             20,
             "force"
           );
+          raw(`particle sonic_boom ~ ~1 ~ 0.5 0.5 0.5 1 1`);
         },
         () => {
           summon("minecraft:warden", rel(0, 0, 0), {

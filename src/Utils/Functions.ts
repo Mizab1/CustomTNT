@@ -21,3 +21,14 @@ export function i(item: LiteralUnion<ITEMS>, nbt: RootNBT) {
 export function b(block: LiteralUnion<BLOCKS>, nbt: RootNBT) {
   return `${block}${nbtParser(nbt)}`;
 }
+
+/**
+ * Generates a random integer between the specified minimum and maximum values (inclusive).
+ *
+ * @param {number} min - The minimum value for the random integer.
+ * @param {number} max - The maximum value for the random integer.
+ * @return {number} The generated random integer.
+ */
+export function randomIntFromInterval(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
