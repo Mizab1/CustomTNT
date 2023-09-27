@@ -31,7 +31,7 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
       placeAndCreateFunction("give_10x", "10x TNT", "10x", 110002);
       placeAndCreateFunction("give_20x", "20x TNT", "20x", 110003);
       placeAndCreateFunction("give_house", "House TNT", "house", 110004);
-      placeAndCreateFunction("give_animals", "Animals TNT", "animals", 110005);
+      placeAndCreateFunction("give_mobs", "Mobs TNT", "animals", 110005);
       placeAndCreateFunction(
         "give_lightning",
         "Lightning Strike TNT",
@@ -199,56 +199,58 @@ export const handler = MCFunction("custom_tnt/handler", () => {
         },
         () => {
           for (let i = 0; i < 25; i++) {
-            summon("minecraft:cow", rel(0, 0, 0), {
-              Tags: ["tnt.cow"],
+            summon("minecraft:zombie", rel(0, 0, 0), {
+              Tags: ["tnt.zombie"],
               Motion: [
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
               ],
             });
-            summon("minecraft:chicken", rel(0, 0, 0), {
-              Tags: ["tnt.chicken"],
+            summon("minecraft:creeper", rel(0, 0, 0), {
+              Tags: ["tnt.creeper"],
               Motion: [
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
               ],
             });
-            summon("minecraft:pig", rel(0, 0, 0), {
-              Tags: ["tnt.pig"],
+            summon("minecraft:skeleton", rel(0, 0, 0), {
+              Tags: ["tnt.skeleton"],
+              Motion: [
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+                Math.random().toFixed(2),
+              ],
+              HandItems: [{ id: "minecraft:bow", Count: NBT.byte(1) }, {}],
+            });
+            summon("minecraft:blaze", rel(0, 0, 0), {
+              Tags: ["tnt.blaze"],
               Motion: [
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
               ],
             });
-            summon("minecraft:sheep", rel(0, 0, 0), {
-              Tags: ["tnt.sheep"],
+            summon("minecraft:enderman", rel(0, 0, 0), {
+              Tags: ["tnt.enderman"],
               Motion: [
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
               ],
             });
-            summon("minecraft:horse", rel(0, 0, 0), {
-              Tags: ["tnt.horse"],
+            summon("minecraft:stray", rel(0, 0, 0), {
+              Tags: ["tnt.stray"],
               Motion: [
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
               ],
+              HandItems: [{ id: "minecraft:bow", Count: NBT.byte(1) }, {}],
             });
-            summon("minecraft:rabbit", rel(0, 0, 0), {
-              Tags: ["tnt.rabbit"],
-              Motion: [
-                Math.random().toFixed(2),
-                Math.random().toFixed(2),
-                Math.random().toFixed(2),
-              ],
-            });
-            summon("minecraft:cat", rel(0, 0, 0), {
-              Tags: ["tnt.cat"],
+            summon("minecraft:husk", rel(0, 0, 0), {
+              Tags: ["tnt.husk"],
               Motion: [
                 Math.random().toFixed(2),
                 Math.random().toFixed(2),
