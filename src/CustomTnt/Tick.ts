@@ -149,22 +149,11 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             "plains_tool_smith_1",
             "plains_weaponsmith_1",
           ];
-          let housesLoop: number = 12;
-          let numHouses: number = 8;
 
-          for (let i = 0; i < housesLoop; i++) {
-            // Spawn and spread the house marker
-            summon("minecraft:armor_stand", rel(0, 0, 0), {
-              Tags: [markerTag, "house" + ((i % numHouses) + 1)],
-            });
-          }
-          spreadplayers(
-            rel(0, 0),
-            10,
-            50,
-            false,
-            Selector("@e", { type: "minecraft:armor_stand", tag: markerTag })
-          );
+          // Spawn and spread the house marker
+          summon("minecraft:armor_stand", rel(0, 0, 0), {
+            Tags: [markerTag, "house"],
+          });
 
           // Spawn the house
           execute
@@ -174,34 +163,23 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             .at(self)
             .run(() => {
               raw(`particle minecraft:wax_on ~ ~ ~ 3 3 3 0 5000 force`);
-              for (let i = 0; i < housesLoop; i++) {
-                let pickRandomHouse =
-                  houses[Math.floor(Math.random() * houses.length)];
-                _.if(
-                  Selector("@s", { tag: "house" + ((i % numHouses) + 1) }),
-                  () => {
-                    setblock(
-                      rel(0, -2, 0),
-                      b("minecraft:structure_block[mode=load]", {
-                        name: `houses/${pickRandomHouse}`,
-                        rotation: "NONE",
-                        mirror: "NONE",
-                        mode: "LOAD",
-                        posX: -4,
-                        posY: 2,
-                        posZ: -4,
-                      }),
-                      "replace"
-                    );
-                    setblock(
-                      rel(0, -3, 0),
-                      "minecraft:redstone_block",
-                      "replace"
-                    );
-                    kill(self);
-                  }
+              _.if(Selector("@s", { tag: "house" }), () => {
+                setblock(
+                  rel(0, -2, 0),
+                  b("minecraft:structure_block[mode=load]", {
+                    name: `houses/${houses[4]}`,
+                    rotation: "NONE",
+                    mirror: "NONE",
+                    mode: "LOAD",
+                    posX: -4,
+                    posY: 2,
+                    posZ: -5,
+                  }),
+                  "replace"
                 );
-              }
+                setblock(rel(0, -3, 0), "minecraft:redstone_block", "replace");
+                kill(self);
+              });
             });
         },
         null
