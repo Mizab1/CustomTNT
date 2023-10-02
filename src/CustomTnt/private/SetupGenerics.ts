@@ -162,6 +162,7 @@ export const explosionHandler = (
           30,
           "force"
         );
+        particle("minecraft:cloud", rel(0, 1, 0), [1, 0.1, 1], 1, 20, "force");
         playsound(
           "minecraft:entity.generic.explode",
           "master",
