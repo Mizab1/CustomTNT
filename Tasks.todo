@@ -10,7 +10,18 @@ Task:
   ✔ Nuclear dynamite- throwable explosion slightly weaker than nuclear tnt
   ✔ Warden tnt- explodes into a warden
 
-  ☐ Do Textures
+  ✔ Big tnt- bigger modeled tnt with bigger explosion
+  ☐ Small tnt- smaller modeled tnt with smaller explosion
+  ☐ Air burst tnt - insane knockback explosion instead of damage
+  ☐ Jerome tnt- explodes into a bunch of jeromes
+  ☐ Tree tnt- explodes into a bunch of fully grown trees of different types
+  ☐ Angry dog tnt- explodes into a pack of angry dogs
+  ☐ Angry bee tnt- explodes into a bunch of angry bees
+  ☐ Honey tnt- explodes into a bunch of honey source blocks
+  ☐ Creeper tnt- explodes into exploding creepers or just regular creepers
+  ☐ Acid dynamite- A throwable dynamite that just removes all blocks in it's path
+
+  ✔ Do Textures
 
 Test:
-  ☐ House TNT in different world
+  ✔ House TNT in different world

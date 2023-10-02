@@ -4,22 +4,20 @@ import {
   Selector,
   _,
   execute,
-  fill,
   kill,
   particle,
   raw,
   rel,
   schedule,
   setblock,
-  spreadplayers,
   summon,
 } from "sandstone";
 import { self } from "../Tick";
+import { b } from "../Utils/Functions";
 import {
   explosionHandler,
   placeAndCreateFunction,
 } from "./private/SetupGenerics";
-import { b, randomIntFromInterval } from "../Utils/Functions";
 
 export const setTntblock = MCFunction("custom_tnt/setblock", () => {
   execute
@@ -41,6 +39,7 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
       placeAndCreateFunction("give_fire", "Fire TNT", "fire", 110007);
       placeAndCreateFunction("give_nuclear", "Nuclear TNT", "nuclear", 110008);
       placeAndCreateFunction("give_warden", "Warden TNT", "warden", 110009);
+      placeAndCreateFunction("give_big", "Big TNT", "big", 110010);
     });
 });
 
@@ -368,6 +367,36 @@ export const handler = MCFunction("custom_tnt/handler", () => {
                 '"minecraft:is_emerging"': { ttl: NBT.long(134), value: {} },
               },
             },
+          });
+        },
+        null
+      );
+      explosionHandler(
+        "tnt.big",
+        100,
+        () => {
+          particle(
+            "minecraft:cloud",
+            rel(0, 1.2, 0),
+            [0.2, 0.2, 0.2],
+            0.1,
+            5,
+            "force"
+          );
+          particle(
+            "minecraft:smoke",
+            rel(0, 1.2, 0),
+            [0.2, 0.2, 0.2],
+            0.1,
+            10,
+            "force"
+          );
+        },
+        () => {
+          summon("minecraft:creeper", rel(0, 0, 0), {
+            Fuse: 0,
+            ignited: NBT.byte(1),
+            ExplosionRadius: NBT.byte(14),
           });
         },
         null
