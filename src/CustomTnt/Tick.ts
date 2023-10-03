@@ -19,6 +19,7 @@ import {
   explosionHandler,
   placeAndCreateFunction,
 } from "./private/SetupGenerics";
+import { pushBackApi } from "../Utils/PushBackApi";
 
 export const setTntblock = MCFunction("custom_tnt/setblock", () => {
   execute
@@ -42,6 +43,12 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
       placeAndCreateFunction("give_warden", "Warden TNT", "warden", 110009);
       placeAndCreateFunction("give_big", "Big TNT", "big", 110010);
       placeAndCreateFunction("give_small", "Small TNT", "small", 110011);
+      placeAndCreateFunction(
+        "give_knockback",
+        "Knockback TNT",
+        "knockback",
+        110013
+      );
     });
 });
 
@@ -455,6 +462,25 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             ],
           });
         },
+        null
+      );
+      explosionHandler(
+        "tnt.knockback",
+        100,
+        () => {
+          particle(
+            "minecraft:reverse_portal",
+            rel(0, 0.8, 0),
+            [0.2, 0.2, 0.2],
+            0.1,
+            2,
+            "force"
+          );
+        },
+        () => {
+          pushBackApi();
+        },
+        null,
         null
       );
     });
