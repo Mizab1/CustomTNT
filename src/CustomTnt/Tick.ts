@@ -49,6 +49,7 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
         "knockback",
         110013
       );
+      placeAndCreateFunction("give_jerome", "Jerome TNT", "jerome", 110014);
     });
 });
 
@@ -487,6 +488,33 @@ export const handler = MCFunction("custom_tnt/handler", () => {
         },
         () => {
           pushBackApi();
+        },
+        null,
+        null
+      );
+      explosionHandler(
+        "tnt.jerome",
+        100,
+        () => {
+          raw(
+            `particle minecraft:block brown_concrete ~ ~0.8 ~ 0.3 0.3 0.3 1 15 force`
+          );
+          raw(
+            `particle minecraft:block blue_concrete ~ ~0.8 ~ 0.3 0.3 0.3 1 15 force`
+          );
+        },
+        () => {
+          for (let i = 0; i < 15; i++) {
+            summon("minecraft:zombie", rel(0, 0, 0), {
+              Motion: [
+                +Math.random().toFixed(2),
+                +Math.random().toFixed(2),
+                +Math.random().toFixed(2),
+              ],
+              CustomName: '{"text":"Jerome"}',
+              DeathLootTable: "minecraft:bat",
+            });
+          }
         },
         null,
         null
