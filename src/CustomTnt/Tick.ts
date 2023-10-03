@@ -473,6 +473,14 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             rel(0, 0.8, 0),
             [0.2, 0.2, 0.2],
             0.1,
+            10,
+            "force"
+          );
+          particle(
+            "minecraft:poof",
+            rel(0, 0.8, 0),
+            [0.2, 0.2, 0.2],
+            0.5,
             2,
             "force"
           );
