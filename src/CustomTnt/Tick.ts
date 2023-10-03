@@ -3,6 +3,7 @@ import {
   NBT,
   Selector,
   _,
+  data,
   execute,
   kill,
   particle,
@@ -40,6 +41,7 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
       placeAndCreateFunction("give_nuclear", "Nuclear TNT", "nuclear", 110008);
       placeAndCreateFunction("give_warden", "Warden TNT", "warden", 110009);
       placeAndCreateFunction("give_big", "Big TNT", "big", 110010);
+      placeAndCreateFunction("give_small", "Small TNT", "small", 110011);
     });
 });
 
@@ -69,6 +71,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             ExplosionRadius: NBT.byte(7),
           });
         },
+        null,
         null
       );
       explosionHandler(
@@ -94,6 +97,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             ExplosionRadius: NBT.byte(10),
           });
         },
+        null,
         null
       );
       explosionHandler(
@@ -117,6 +121,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             ExplosionRadius: NBT.byte(15),
           });
         },
+        null,
         null
       );
       explosionHandler(
@@ -181,6 +186,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
               });
             });
         },
+        null,
         null
       );
       explosionHandler(
@@ -258,6 +264,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             });
           }
         },
+        null,
         null
       );
       explosionHandler(
@@ -284,6 +291,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             "replace"
           );
         },
+        null,
         null
       );
       explosionHandler(
@@ -305,6 +313,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
           );
           particle("minecraft:explosion", rel(0, 0, 0), [5, 5, 5], 0, 6_000);
         },
+        null,
         null
       );
       explosionHandler(
@@ -340,6 +349,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             }
           }
         },
+        null,
         null
       );
       explosionHandler(
@@ -369,6 +379,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             },
           });
         },
+        null,
         null
       );
       explosionHandler(
@@ -397,6 +408,51 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             Fuse: 0,
             ignited: NBT.byte(1),
             ExplosionRadius: NBT.byte(14),
+          });
+        },
+        null,
+        null
+      );
+      explosionHandler(
+        "tnt.small",
+        100,
+        () => {
+          particle(
+            "minecraft:cloud",
+            rel(0, 0.8, 0),
+            [0.2, 0.2, 0.2],
+            0.1,
+            2,
+            "force"
+          );
+          particle(
+            "minecraft:smoke",
+            rel(0, 0.8, 0),
+            [0.2, 0.2, 0.2],
+            0.1,
+            5,
+            "force"
+          );
+        },
+        () => {
+          summon("minecraft:creeper", rel(0, 0, 0), {
+            Fuse: 0,
+            ignited: NBT.byte(1),
+            ExplosionRadius: NBT.byte(2),
+          });
+        },
+        () => {
+          data.merge.entity(self, {
+            ArmorItems: [
+              {},
+              {},
+              {},
+              {
+                id: "minecraft:endermite_spawn_egg",
+                Count: NBT.byte(1),
+                tag: { CustomModelData: 110012 },
+              },
+            ],
           });
         },
         null
