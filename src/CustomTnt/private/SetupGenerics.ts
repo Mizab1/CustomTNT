@@ -128,6 +128,7 @@ export const explosionHandler = (
   FuseTimer: number,
   displayParticles: () => void,
   eventOnExplosion: () => void,
+  runOnIgnite: () => void | null,
   runEachTick: () => void | null
 ) => {
   execute.if(Selector("@s", { tag: TntTag })).run(() => {
@@ -147,6 +148,9 @@ export const explosionHandler = (
     });
 
     // * Run Continuously if the TNT is primed
+    _.if(fuseTime.equalTo(FuseTimer - 1), () => {
+      runOnIgnite ? runOnIgnite() : "";
+    });
     _.if(fuseTime.greaterOrEqualThan(0), () => {
       displayParticles();
 
