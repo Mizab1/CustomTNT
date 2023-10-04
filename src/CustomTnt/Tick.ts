@@ -5,6 +5,7 @@ import {
   _,
   data,
   execute,
+  gamerule,
   kill,
   particle,
   raw,
@@ -57,6 +58,7 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
       );
       placeAndCreateFunction("give_jerome", "Jerome TNT", "jerome", 110014);
       placeAndCreateFunction("give_tree", "Tree TNT", "tree", 110015);
+      placeAndCreateFunction("give_wolf", "Angry Wolf TNT", "wolf", 110016);
     });
 });
 
@@ -587,6 +589,31 @@ export const handler = MCFunction("custom_tnt/handler", () => {
                 .run.raw(`place feature minecraft:acacia`);
               kill(self);
             });
+        },
+        null,
+        null
+      );
+      explosionHandler(
+        "tnt.wolf",
+        100,
+        () => {
+          raw(
+            `particle minecraft:angry_villager ~ ~0.8 ~ 0.3 0.3 0.3 1 4 force`
+          );
+        },
+        () => {
+          gamerule("universalAnger", true);
+          for (let i = 0; i < 15; i++) {
+            summon("minecraft:wolf", rel(0, 0, 0), {
+              Motion: [
+                +lodash.random(0.2, 0.9, true).toFixed(1),
+                +lodash.random(0.2, 0.9, true).toFixed(1),
+                +lodash.random(0.2, 0.9, true).toFixed(1),
+              ],
+              AngerTime: 19999980,
+              DeathLootTable: "minecraft:bat",
+            });
+          }
         },
         null,
         null
