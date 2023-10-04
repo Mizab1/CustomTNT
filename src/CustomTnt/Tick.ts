@@ -11,10 +11,16 @@ import {
   rel,
   schedule,
   setblock,
+  spreadplayers,
   summon,
 } from "sandstone";
+import * as lodash from "lodash";
 import { self } from "../Tick";
-import { b } from "../Utils/Functions";
+import {
+  b,
+  randomFloatFromInterval,
+  randomIntFromInterval,
+} from "../Utils/Functions";
 import {
   explosionHandler,
   placeAndCreateFunction,
@@ -50,6 +56,7 @@ export const setTntblock = MCFunction("custom_tnt/setblock", () => {
         110013
       );
       placeAndCreateFunction("give_jerome", "Jerome TNT", "jerome", 110014);
+      placeAndCreateFunction("give_tree", "Tree TNT", "tree", 110015);
     });
 });
 
@@ -507,14 +514,79 @@ export const handler = MCFunction("custom_tnt/handler", () => {
           for (let i = 0; i < 15; i++) {
             summon("minecraft:zombie", rel(0, 0, 0), {
               Motion: [
-                +Math.random().toFixed(2),
-                +Math.random().toFixed(2),
-                +Math.random().toFixed(2),
+                +lodash.random(0.2, 0.9, true).toFixed(1),
+                +lodash.random(0.2, 0.9, true).toFixed(1),
+                +lodash.random(0.2, 0.9, true).toFixed(1),
               ],
               CustomName: '{"text":"Jerome"}',
               DeathLootTable: "minecraft:bat",
+              Silent: NBT.byte(1),
             });
           }
+        },
+        null,
+        null
+      );
+      explosionHandler(
+        "tnt.tree",
+        100,
+        () => {
+          raw(
+            `particle minecraft:block oak_leaves ~ ~0.8 ~ 0.3 0.3 0.3 1 5 force`
+          );
+          raw(
+            `particle minecraft:block dark_oak_leaves ~ ~0.8 ~ 0.3 0.3 0.3 1 5 force`
+          );
+          raw(
+            `particle minecraft:block birch_leaves ~ ~0.8 ~ 0.3 0.3 0.3 1 5 force`
+          );
+        },
+        () => {
+          for (let i = 0; i < 4; i++) {
+            summon("minecraft:armor_stand", rel(0, 0, 0), {
+              Tags: ["tree.as", "tree.oak"],
+              Invisible: NBT.byte(1),
+            });
+            summon("minecraft:armor_stand", rel(0, 0, 0), {
+              Tags: ["tree.as", "tree.birch"],
+              Invisible: NBT.byte(1),
+            });
+            summon("minecraft:armor_stand", rel(0, 0, 0), {
+              Tags: ["tree.as", "tree.dark_oak"],
+              Invisible: NBT.byte(1),
+            });
+            summon("minecraft:armor_stand", rel(0, 0, 0), {
+              Tags: ["tree.as", "tree.acacia"],
+              Invisible: NBT.byte(1),
+            });
+          }
+          spreadplayers(
+            rel(0, 0),
+            4,
+            13,
+            false,
+            Selector("@e", { type: "minecraft:armor_stand", tag: "tree.as" })
+          );
+          execute
+            .as(
+              Selector("@e", { type: "minecraft:armor_stand", tag: "tree.as" })
+            )
+            .at(self)
+            .run(() => {
+              execute.if
+                .entity(Selector("@s", { tag: ["tree.oak"] }))
+                .run.raw(`place feature minecraft:oak`);
+              execute.if
+                .entity(Selector("@s", { tag: ["tree.dark_oak"] }))
+                .run.raw(`place feature minecraft:dark_oak`);
+              execute.if
+                .entity(Selector("@s", { tag: ["tree.birch"] }))
+                .run.raw(`place feature minecraft:birch`);
+              execute.if
+                .entity(Selector("@s", { tag: ["tree.acacia"] }))
+                .run.raw(`place feature minecraft:acacia`);
+              kill(self);
+            });
         },
         null,
         null
