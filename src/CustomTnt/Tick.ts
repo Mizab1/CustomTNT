@@ -388,7 +388,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             20,
             "force"
           );
-          raw(`particle sonic_boom ~ ~1 ~ 0.5 0.5 0.5 1 1`);
+          raw(`particle sonic_boom ~ ~1 ~ 0.5 0.5 0.5 1 1 force`);
         },
         () => {
           summon("minecraft:warden", rel(0, 0, 0), {
