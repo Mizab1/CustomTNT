@@ -4,7 +4,13 @@ const self = Selector("@s");
 
 export const pushBackApi = MCFunction("util/push_back", () => {
   execute
-    .as(Selector("@a", { tag: ["!pushback_user"], distance: [Infinity, 8] }))
+    .at(
+      Selector("@e", {
+        type: "minecraft:armor_stand",
+        tag: ["tnt.knockback"],
+      })
+    )
+    .as(Selector("@a", { tag: ["!pushback_user"], distance: [Infinity, 10] }))
     .at(self)
     .run(() => {
       // delta api stuff
