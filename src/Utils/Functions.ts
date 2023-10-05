@@ -7,7 +7,7 @@ import { BLOCKS, ITEMS, LiteralUnion, RootNBT, nbtParser } from "sandstone";
  * @param {RootNBT} nbt - The nbt string to be parsed.
  * @return {string} The concatenated string.
  */
-export function i(item: LiteralUnion<ITEMS>, nbt: RootNBT) {
+export function i(item: LiteralUnion<ITEMS>, nbt: RootNBT): string {
   return `${item}${nbtParser(nbt)}`;
 }
 
@@ -18,7 +18,7 @@ export function i(item: LiteralUnion<ITEMS>, nbt: RootNBT) {
  * @param {RootNBT} nbt - The NBT to concatenate.
  * @return {string} The concatenated string.
  */
-export function b(block: LiteralUnion<BLOCKS>, nbt: RootNBT) {
+export function b(block: LiteralUnion<BLOCKS>, nbt: RootNBT): string {
   return `${block}${nbtParser(nbt)}`;
 }
 
