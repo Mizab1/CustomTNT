@@ -25,3 +25,6 @@ Task:
 
 Test:
   ✔ House TNT in different world
+  When someone dies to a tnt, have it not say creeper killed in chat, either TNT or generic "Boom"
+  ✔ More power to grav gun so that the tnt can be shot farther
+  ✔ TNT textures break when touching other TNT

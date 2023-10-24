@@ -90,6 +90,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             Fuse: 0,
             ignited: NBT.byte(1),
             ExplosionRadius: NBT.byte(7),
+            CustomName: '{"text":"TNT","italic":false}',
           });
         },
         null,
@@ -116,6 +117,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             Fuse: 0,
             ignited: NBT.byte(1),
             ExplosionRadius: NBT.byte(10),
+            CustomName: '{"text":"TNT","italic":false}',
           });
         },
         null,
@@ -140,6 +142,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             Fuse: 0,
             ignited: NBT.byte(1),
             ExplosionRadius: NBT.byte(15),
+            CustomName: '{"text":"TNT","italic":false}',
           });
         },
         null,
@@ -365,7 +368,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
               raw(
                 `summon fireball ~${i * 10} ~-0.8 ~${
                   j * 10
-                } {ExplosionPower:100b,power:[0.0,-1.0,0.0]}`
+                } {ExplosionPower:100b,power:[0.0,-1.0,0.0], CustomName: '{"text":"TNT","italic":false}',}`
               );
             }
           }
@@ -429,6 +432,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             Fuse: 0,
             ignited: NBT.byte(1),
             ExplosionRadius: NBT.byte(14),
+            CustomName: '{"text":"TNT","italic":false}',
           });
         },
         null,
@@ -460,6 +464,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
             Fuse: 0,
             ignited: NBT.byte(1),
             ExplosionRadius: NBT.byte(2),
+            CustomName: '{"text":"TNT","italic":false}',
           });
         },
         () => {
@@ -500,6 +505,10 @@ export const handler = MCFunction("custom_tnt/handler", () => {
           );
         },
         () => {
+          summon("minecraft:armor_stand", rel(0, 0, 0), {
+            Marker: NBT.byte(1),
+            Tags: ["pushback.aS"],
+          });
           pushBackApi();
         },
         null,
@@ -669,6 +678,7 @@ export const handler = MCFunction("custom_tnt/handler", () => {
           summon("minecraft:creeper", rel(0, 0, 0), {
             Fuse: 0,
             ignited: NBT.byte(1),
+            CustomName: '{"text":"TNT","italic":false}',
           });
         },
         null,

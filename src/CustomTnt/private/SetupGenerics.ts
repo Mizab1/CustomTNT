@@ -28,7 +28,7 @@ const placeTnt = (tag: string, customModelData: number) => {
   _.if(Selector("@s", { tag: tag }), () => {
     playsound("minecraft:block.grass.place", "block", "@a", rel(0, 0, 0));
     summon("minecraft:armor_stand", rel(0, 0, 0), {
-      NoGravity: NBT.byte(0),
+      NoGravity: NBT.byte(1),
       Invisible: NBT.byte(1),
       Tags: [`tnt.${tag}`, `tnt.as`],
       ArmorItems: [

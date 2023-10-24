@@ -1,8 +1,17 @@
-import { MCFunction, Objective, Selector, execute } from "sandstone";
+import {
+  MCFunction,
+  NBT,
+  Objective,
+  Selector,
+  data,
+  execute,
+  say,
+} from "sandstone";
 import { handler, setTntblock } from "./CustomTnt/Tick";
 import { spawnSlime, teleportSlime } from "./CustomTnt/DisableSlots";
 import { decrementFuseTime } from "./CustomTnt/Fuse";
 import { hitGround } from "./Items/Dynamite";
+import { AddGravity } from "./CustomTnt/Auxillary/LightningTnt/AddGravity";
 
 const fuseTimeObj = Objective.create("fuse_time_obj", "dummy");
 const rngObj = Objective.create("rng_obj", "dummy");
@@ -26,6 +35,9 @@ const tick = MCFunction(
     teleportSlime();
     spawnSlime();
     decrementFuseTime();
+
+    // Add Gravity to the TNT
+    AddGravity();
   },
   { runEachTick: true }
 );
